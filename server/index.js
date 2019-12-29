@@ -12,7 +12,7 @@ app.use(express.json())
 const Category = require('./controllers/category')
 const User = require('./controllers/user')
 const Event = require('./controllers/event')
-const Order = require('./controllers/order.js')
+const Order = require('./controllers/order')
 
 const Auth = require('./helpers/middleware')
 
@@ -36,7 +36,6 @@ app.group('/', (router) => {
     router.put('/order/:id', Auth.auth, Order.payment)
     router.put('/order/:id/approval', Auth.auth, Order.approval)
     router.get('/orders', Auth.auth, Order.myTicket)
-
 })
 
 app.listen(port, () => console.log(`Listening on port ${port}!`))

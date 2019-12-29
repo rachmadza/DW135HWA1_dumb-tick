@@ -14,11 +14,11 @@ module.exports = {
     */
       return queryInterface.bulkInsert('Users', [{
         name: 'Ismail',
-        phone: '083896831233',
+        phoneNumber: '083896831233',
         email: 'Ismail@gmail.com',
         username: 'Ismail',
         password: 'password',
-        image: 'http://someimage.net/haris-astina.png',
+        img: 'http://someimage.net/haris-astina.png',
         createdAt: new Date(),
         updatedAt: new Date()
       }], {});

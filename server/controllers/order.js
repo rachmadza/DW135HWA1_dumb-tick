@@ -15,18 +15,18 @@ module.exports = {
         })
         .then(event => {
             Category.findOne({
-                where: { id: event.category_id}
+                where: { id: event.categoryId}
             })
             .then(category => {
                 User.findOne({
-                    where: { id: event.user_id }
+                    where: { id: event.userId }
                 })
                 .then(user => {
                     Order.create({
-                        event_id: req.body.id,
-                        buyer_id: req.currentUser.id,
+                        eventId: req.body.id,
+                        buyerId: req.currentUser.id,
                         quantity: req.body.quantity,
-                        total_price: (req.body.quantity*event.price)
+                        totalPrice: (req.body.quantity*event.price)
                     })
                     .then(order => {
                         res.status(201).json({
@@ -38,23 +38,23 @@ module.exports = {
                                     id: category.id,
                                     name: category.name
                                 },
-                                start_time: event.start_time,
-                                end_time: event.end_time,
+                                startTime: event.startTime,
+                                endTime: event.endTime,
                                 price: event.price,
                                 description: event.description,
                                 address: event.address,
-                                url_maps: event.url_maps,
-                                image: event.image,
+                                urlMaps: event.urlMaps,
+                                img: event.img,
                                 createdBy: {
                                     id: user.id,
                                     name: user.name,
                                     phone: user.phone,
                                     email: user.email,
-                                    image: user.image
+                                    img: user.img
                                 }
                             },
                             quantity: order.quantity,
-                            total_price: order.total_price,
+                            totalPrice: order.totalPrice,
                             status: order.status,
                             attachment: (!order.attachment ? "" : order.attachment)
                         })
@@ -76,17 +76,17 @@ module.exports = {
             where: { id: req.params.id }
         })
         .then(order => {
-            if(order.buyer_id === req.currentUser.id) {
+            if(order.buyerId === req.currentUser.id) {
                 Event.findOne({
-                    where: { id: order.event_id }
+                    where: { id: order.eventId }
                 })
                 .then(event => {
                     Category.findOne({
-                        where: { id: event.category_id }
+                        where: { id: event.categoryId }
                     })
                     .then(category => {
                         User.findOne({
-                            where: { id: event.user_id }
+                            where: { id: event.userId }
                         })
                         .then(user => {
                             Order.update({
@@ -110,23 +110,23 @@ module.exports = {
                                                 id: category.id,
                                                 name: category.name
                                             },
-                                            start_time: event.start_time,
-                                            end_time: event.end_time,
+                                            startTime: event.startTime,
+                                            endTime: event.endTime,
                                             price: event.price,
                                             description: event.description,
                                             address: event.address,
-                                            url_maps: event.url_maps,
-                                            image: event.image,
+                                            urlMaps: event.urlMaps,
+                                            img: event.img,
                                             createdBy: {
                                                 id: user.id,
                                                 name: user.name,
                                                 phone: user.phone,
                                                 email: user.email,
-                                                image: user.image
+                                                img: user.img
                                             }
                                         },
                                         quantity: order.quantity,
-                                        total_price: order.total_price,
+                                        totalPrice: order.totalPrice,
                                         status: fresh.status,
                                         attachment: fresh.attachment
                                     })
@@ -157,16 +157,16 @@ module.exports = {
         })
         .then(order => {
                 Event.findOne({
-                    where: { id: order.event_id }
+                    where: { id: order.eventId }
                 })
                 .then(event => {
-                    if(event.user_id === req.currentUser.id) {
+                    if(event.userId === req.currentUser.id) {
                         Category.findOne({
-                            where: { id: event.category_id }
+                            where: { id: event.categoryId }
                         })
                         .then(category => {
                             User.findOne({
-                                where: { id: event.user_id }
+                                where: { id: event.userId }
                             })
                             .then(user => {
                                 Order.update({
@@ -190,23 +190,23 @@ module.exports = {
                                                     id: category.id,
                                                     name: category.name
                                                 },
-                                                start_time: event.start_time,
-                                                end_time: event.end_time,
+                                                startTime: event.startTime,
+                                                endTime: event.endTime,
                                                 price: event.price,
                                                 description: event.description,
                                                 address: event.address,
-                                                url_maps: event.url_maps,
-                                                image: event.image,
+                                                urlMaps: event.urlMaps,
+                                                img: event.img,
                                                 createdBy: {
                                                     id: user.id,
                                                     name: user.name,
                                                     phone: user.phone,
                                                     email: user.email,
-                                                    image: user.image
+                                                    img: user.img
                                                 }
                                             },
                                             quantity: order.quantity,
-                                            total_price: order.total_price,
+                                            totalPrice: order.totalPrice,
                                             status: fresh.status,
                                             attachment: fresh.attachment
                                         })
@@ -235,7 +235,7 @@ module.exports = {
         let status = req.query.status
 
         Order.findOne({
-            where: { buyer_id: req.currentUser.id }
+            where: { buyerId: req.currentUser.id }
         })
         .then(user => {
             Order.findAll({

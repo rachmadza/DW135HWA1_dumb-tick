@@ -1,10 +1,10 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const Order = sequelize.define('Order', {
-    event_id: DataTypes.INTEGER,
-    buyer_id:DataTypes.INTEGER,
+    eventId: DataTypes.INTEGER,
+    buyerId:DataTypes.INTEGER,
     quantity: DataTypes.INTEGER,
-    total_price: DataTypes.STRING,
+    totalPrice: DataTypes.STRING,
     status: {
       type:DataTypes.BOOLEAN,
       allowNull: false,

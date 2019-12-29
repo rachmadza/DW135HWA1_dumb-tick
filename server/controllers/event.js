@@ -15,19 +15,19 @@ const displayList = data => {
                 id: item.category.id,
                 name: item.category.name
             },
-            start_time: item.start_time,
-            end_time: item.end_time,
+            startTime: item.startTime,
+            endTime: item.endTime,
             price: item.price,
             description: item.description,
             address: item.address,
-            url_maps: item.url_maps,
-            image: item.image,
+            urlMaps: item.urlMaps,
+            img: item.img,
             createdBy: {
                 id: item.createdBy.id,
                 name: item.createdBy.name,
                 phone: item.createdBy.phone,
                 email: item.createdBy.email,
-                image: item.createdBy.image
+                img: item.createdBy.img
             }
 
         }
@@ -45,19 +45,19 @@ const displayDetailById = data => {
                 id: item.category.id,
                 name: item.category.name
             },
-            start_time: item.start_time,
-            end_time: item.end_time,
+            startTime: item.startTime,
+            endTime: item.endTime,
             price: item.price,
             description: item.description,
             address: item.address,
-            url_maps: item.url_maps,
-            image: item.image,
+            urlMaps: item.urlMaps,
+            img: item.img,
             createdBy: {
                 id: item.createdBy.id,
                 name: item.createdBy.name,
                 phone: item.createdBy.phone,
                 email: item.createdBy.email,
-                image: item.createdBy.image
+                img: item.createdBy.img
             }
 
         }
@@ -70,7 +70,7 @@ module.exports = {
 
     list: (req, res) => {
         let title = req.query.title
-        let time = req.query.start_time
+        let time = req.query.startTime
 
         let qWhere
         if(req.query.title) {
@@ -79,7 +79,7 @@ module.exports = {
                     [Op.like]: `${title}`
                 }
             }
-        } else if (req.query.start_time) {
+        } else if (req.query.startTime) {
             qWhere = {
                 title: {
                     [Op.like]: `${time}`
@@ -134,7 +134,7 @@ module.exports = {
                     as: "createdBy"
                 }
             ],
-            where: { category_id: id }
+            where: { categoryId: id }
         })
             .then(categories => {
                 if (categories.length > 0) {
@@ -198,15 +198,15 @@ module.exports = {
             .then(category => {
                 Event.create({
                     title: req.body.title,
-                    category_id: req.body.category,
-                    start_time: req.body.start_time,
-                    end_time: req.body.end_time,
+                    categoryId: req.body.category,
+                    startTime: req.body.startTime,
+                    endTime: req.body.endTime,
                     price: req.body.price,
                     description: req.body.description,
                     address: req.body.address,
-                    url_maps: req.body.url_maps,
-                    image: req.body.image,
-                    user_id: req.currentUser.id
+                    urlMaps: req.body.urlMaps,
+                    img: req.body.img,
+                    userId: req.currentUser.id
                 })
                 .then(event => {
                     res.status(201).json({
@@ -216,19 +216,19 @@ module.exports = {
                             id: category.id,
                             name: category.name
                         },
-                        start_time:event.start_time,
-                        end_time:event.end_time,
+                        startTime:event.startTime,
+                        endTime:event.endTime,
                         price:event.price,
                         description:event.description,
                         address:event.address,
-                        url_maps:event.url_maps,
-                        image: event.image,
+                        urlMaps:event.urlMaps,
+                        img: event.img,
                         createBy: {
                             id: user.id,
                             name: user.name,
                             phone: user.phone,
                             email: user.email,
-                            image: user.image
+                            img: user.img
                         }
                     })
                 })

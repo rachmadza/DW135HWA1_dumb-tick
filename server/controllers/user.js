@@ -17,9 +17,9 @@ module.exports = {
                 res.status(200).json({
                     id: user.id,
                     name: user.name,
-                    phone: user.phone,
+                    phoneNumber: user.phoneNumber,
                     email: user.email,
-                    image: user.image
+                    img: user.img
                 })
             })
             .catch(err => {

@@ -11,7 +11,7 @@ module.exports = {
       name: {
         type: Sequelize.STRING
       },
-      phone: {
+      phoneNumber: {
         allowNull: true,
         type: Sequelize.STRING
       },
@@ -24,7 +24,7 @@ module.exports = {
       password: {
         type: Sequelize.STRING
       },
-      image: {
+      img: {
         type: Sequelize.STRING
       },
       createdAt: {
