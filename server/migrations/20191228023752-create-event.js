@@ -37,7 +37,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       urlMaps: {
-        type: Sequelize.STRING
+        type: Sequelize.TEXT
       },
       img: {
         type: Sequelize.STRING

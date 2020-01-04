@@ -26,4 +26,21 @@ module.exports = {
                 })
             })
     },
+
+    getName: (req, res) => {
+        Category.findOne({
+            where: {
+                id: req.params.id
+            }
+        })
+        .then(name => {
+            res.send(name)
+        })
+        .catch(err => {
+            res.status(500).json({
+                msg: 'Internal Server Error',
+                Error: err
+            })
+        })
+    }
 }

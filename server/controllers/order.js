@@ -7,6 +7,26 @@ const User = models.User;
 const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
 
+const orderList = data => {
+    const convert = data.map(item => {
+        let result = {
+            id: item.id,
+            status: item.status,
+            buyerId: item.buyerId,
+            buyerName: item.buyer.name,
+            price: item.event.price,
+            eventId: item.eventId,
+            title: item.event.title,
+            startTime: item.event.startTime,
+            address: item.event.address,
+            totalPrice: item.totalPrice,
+            quantity: item.quantity
+        }
+        return result
+    })
+    return convert
+}
+
 module.exports = {
     
     create: (req, res) => {
@@ -48,7 +68,7 @@ module.exports = {
                                 createdBy: {
                                     id: user.id,
                                     name: user.name,
-                                    phone: user.phone,
+                                    phone: user.phoneNumber,
                                     email: user.email,
                                     img: user.img
                                 }
@@ -60,6 +80,92 @@ module.exports = {
                         })
                     })
                 })
+            })
+        })
+        .catch(err => {
+            res.status(500).json({
+                msg: 'Internal Server Error',
+                Error: err
+            })
+        })
+    },
+
+    list: (req, res) => {
+
+        Order.findAll({
+            where: { 
+                buyerId: req.currentUser.id,
+                [Op.and]: {
+                    [Op.or]: [{status: 'pending'}, {status: 'confirmed'}]
+                }
+            },
+            include: [
+                {
+                    model: Event,
+                    as: 'event',
+                    include: [
+                        {
+                            model: Category,
+                            as: 'category'
+                        }
+                    ]
+                },
+                {
+                    model: User,
+                    as: 'buyer'
+                }
+            ]
+        })
+        .then(order => {
+            res.status(200).json(orderList(order))
+        })
+        .catch(err => {
+            res.status(500).json({
+                msg: 'Internal Server Error',
+                Error: err
+            })
+        })
+    },
+
+    detail: (req, res) => {
+
+        Order.findOne({
+            where: { 
+                buyerId: req.currentUser.id,
+                [Op.and]: {
+                    id: req.params.id
+                }
+            },
+            include: [
+                {
+                    model: Event,
+                    as: 'event',
+                    include: [
+                        {
+                            model: Category,
+                            as: 'category'
+                        }
+                    ]
+                },
+                {
+                    model: User,
+                    as: 'buyer'
+                }
+            ]
+        })
+        .then(item => {
+            res.status(200).json({
+                id: item.id,
+                status: item.status,
+                buyerId: item.buyerId,
+                buyerName: item.buyer.name,
+                price: item.event.price,
+                eventId: item.eventId,
+                title: item.event.title,
+                startTime: item.event.startTime,
+                address: item.event.address,
+                totalPrice: item.totalPrice,
+                quantity: item.quantity
             })
         })
         .catch(err => {
@@ -120,7 +226,7 @@ module.exports = {
                                             createdBy: {
                                                 id: user.id,
                                                 name: user.name,
-                                                phone: user.phone,
+                                                phone: user.phoneNumber,
                                                 email: user.email,
                                                 img: user.img
                                             }
@@ -200,7 +306,7 @@ module.exports = {
                                                 createdBy: {
                                                     id: user.id,
                                                     name: user.name,
-                                                    phone: user.phone,
+                                                    phone: user.phoneNumber,
                                                     email: user.email,
                                                     img: user.img
                                                 }
@@ -231,6 +337,7 @@ module.exports = {
         })
     },
 
+    
     myTicket: (req, res) => {
         let status = req.query.status
 
@@ -240,13 +347,27 @@ module.exports = {
         .then(user => {
             Order.findAll({
                 where: {
-                    status: {
-                        [Op.like]: `${status}`
-                    }
-                }
+                    status: 'approved'
+                },
+                include: [
+                  {
+                      model: Event,
+                      as: 'event',
+                      include: [
+                          {
+                              model: Category,
+                              as: 'category'
+                          }
+                      ]
+                  },
+                  {
+                      model: User,
+                      as: 'buyer'
+                  }
+              ]
             })
             .then(approved => {
-                res.send(approved)
+                res.send(orderList(approved))
             })
         })
         .catch(err => {

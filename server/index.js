@@ -19,11 +19,12 @@ const Auth = require('./helpers/middleware')
 app.group('/', (router) => {
     //category
     router.get('/categories', Category.list)
+    router.get('/category/:id/name', Category.getName)
 
     //user
     router.post('/register', User.register)
     router.post('/login', User.login)
-    router.get('/profile/:id', User.detail)
+    router.get('/profile', Auth.auth, User.detail)
 
     //event
     router.get('/events', Event.list)
@@ -34,8 +35,10 @@ app.group('/', (router) => {
     //order
     router.post('/order', Auth.auth, Order.create)
     router.put('/order/:id', Auth.auth, Order.payment)
+    router.get('/order/:id', Auth.auth, Order.detail)
     router.put('/order/:id/approval', Auth.auth, Order.approval)
-    router.get('/orders', Auth.auth, Order.myTicket)
+    router.get('/orders', Auth.auth, Order.list)
+    router.get('/myTicket', Auth.auth, Order.myTicket)
 })
 
 app.listen(port, () => console.log(`Listening on port ${port}!`))

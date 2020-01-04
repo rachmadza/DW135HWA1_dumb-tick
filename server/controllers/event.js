@@ -25,7 +25,7 @@ const displayList = data => {
             createdBy: {
                 id: item.createdBy.id,
                 name: item.createdBy.name,
-                phone: item.createdBy.phone,
+                phoneNumber: item.createdBy.phoneNumber,
                 email: item.createdBy.email,
                 img: item.createdBy.img
             }
@@ -55,7 +55,7 @@ const displayDetailById = data => {
             createdBy: {
                 id: item.createdBy.id,
                 name: item.createdBy.name,
-                phone: item.createdBy.phone,
+                phoneNumber: item.createdBy.phoneNumber,
                 email: item.createdBy.email,
                 img: item.createdBy.img
             }
@@ -76,13 +76,13 @@ module.exports = {
         if(req.query.title) {
             qWhere = {
                 title: {
-                    [Op.like]: `${title}`
+                    [Op.substring]: `${title}`
                 }
             }
         } else if (req.query.startTime) {
             qWhere = {
-                title: {
-                    [Op.like]: `${time}`
+                startTime: {
+                    [Op.substring]: `${time}`
                 }
             }
         } else {
@@ -171,7 +171,24 @@ module.exports = {
         })
             .then(event => {
                 if (event.length > 0) {
-                    res.status(200).json(displayDetailById(event))
+                    res.status(200).json({
+                        id: event[0].id,
+                        title: event[0].title,
+                        category_id: event[0].category.id,
+                        category_name: event[0].category.name,
+                        startTime: event[0].startTime,
+                        endTime: event[0].endTime,
+                        price: event[0].price,
+                        description: event[0].description,
+                        address: event[0].address,
+                        urlMaps: event[0].urlMaps,
+                        img: event[0].img,
+                        createdBy_id: event[0].createdBy.id,
+                        createdBy_name: event[0].createdBy.name,
+                        createdBy_phone: event[0].createdBy.phoneNumber,
+                        createdBy_email: event[0].createdBy.email,
+                        createdBy_img: event[0].createdBy.img
+                    })
                 } else {
                     res.status(404).json({
                         msg: "Ups, we can't get events from that Category.."
@@ -216,14 +233,14 @@ module.exports = {
                             id: category.id,
                             name: category.name
                         },
-                        startTime:event.startTime,
-                        endTime:event.endTime,
-                        price:event.price,
-                        description:event.description,
-                        address:event.address,
-                        urlMaps:event.urlMaps,
+                        startTime: event.startTime,
+                        endTime: event.endTime,
+                        price: event.price,
+                        description: event.description,
+                        address: event.address,
+                        urlMaps: event.urlMaps,
                         img: event.img,
-                        createBy: {
+                        createdBy: {
                             id: user.id,
                             name: user.name,
                             phone: user.phone,

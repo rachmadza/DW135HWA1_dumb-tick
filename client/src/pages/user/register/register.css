@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css?family=Libre+Baskerville:400,400i&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,500&display=swap');
+
+.box-shadow-reg {
+  -webkit-box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.5);
+  -moz-box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.5);
+  box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.5);
+}
+
+.font-header-reg {
+  font-family: 'Libre Baskerville', serif;
+  text-align: center;
+  color: black;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 30px;
+}
+
+.subject-reg {
+  font-family: 'Montserrat', sans-serif;
+  text-align: center;
+  font-size: small;
+  color: black;
+  padding-bottom: 20px;
+}
+
+.data-reg {
+  text-align: center;
+  font-size: small;
+  color: black;
+}
+
+.input-reg {
+  width: 60%;
+  margin-bottom: 0;
+}
+
+.button-reg {
+  font-family: 'Montserrat', sans-serif;
+  background-color: black;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 8px 20px 8px 20px;
+}
+
+.link-button-reg {
+  text-decoration: none;
+  color: white;
+  font-weight: medium;
+  font-size: small;
+}
+
+.sign-in-reg {
+  font-family: 'Montserrat', sans-serif;
+  text-align: center;
+  font-size: small;
+  color: black;
+  margin-bottom: 40px
+}
+
+.link-reg {
+  text-decoration: none;
+  font-weight: bolder;
+  color: #029e74;
+}
+
+.terms-reg {
+  font-family: 'Montserrat', sans-serif;
+  text-align: center;
+  font-size: small;
+  color: black;
+  margin-bottom: 20px;
+  width: 80%;
+  margin-left: 9%;
+}

@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
     price: DataTypes.INTEGER,
     description: DataTypes.TEXT,
     address: DataTypes.STRING,
-    urlMaps: DataTypes.STRING,
+    urlMaps: DataTypes.TEXT,
     img: DataTypes.STRING,
     userId: DataTypes.INTEGER
   }, {});
@@ -23,6 +23,10 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'userId',
       as: 'createdBy',
       sourceKey: 'id'
+    })
+    Event.hasMany(models.Order, {
+      foreignKey: 'eventId',
+      as: 'orders'
     })
   };
   return Event;

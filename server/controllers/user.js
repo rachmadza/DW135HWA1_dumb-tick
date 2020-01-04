@@ -8,10 +8,11 @@ const generateToken = require('../helpers/jwt')
 module.exports = {
 
     detail: (req, res) => {
-        const { id } = req.params
+        // const { id } = req.currentUser.id
+        // console.log(req.currentUser.id)
 
         User.findOne({
-            where: { id }
+            where: { id: req.currentUser.id }
         })
             .then(user => {
                 res.status(200).json({
@@ -19,6 +20,7 @@ module.exports = {
                     name: user.name,
                     phoneNumber: user.phoneNumber,
                     email: user.email,
+                    username: user.username,
                     img: user.img
                 })
             })
@@ -33,9 +35,11 @@ module.exports = {
     register: (req, res) => {
         let input = {
             name: req.body.name,
+            phoneNumber: '+62',
             email: req.body.email,
             username: req.body.username,
-            password: encryptPass(req.body.password)
+            password: encryptPass(req.body.password),
+            img: 'https://cutt.ly/UruwRFB'
         }
 
         User.findAll({

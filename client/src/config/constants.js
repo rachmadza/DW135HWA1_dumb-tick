@@ -1,2 +1,16 @@
 export const GET_CATEGORIES = "GET_CATEGORIES"
-export const GET_EVENTS = "GET_EVENTS"
+export const GET_CATEGORY_NAME = "GET_CATEGORY_NAME"
+
+export const GET_EVENTS_TODAY = "GET_EVENTS_TODAY"
+export const GET_EVENTS_UPCOMING = "GET_EVENTS_UPCOMING"
+export const GET_EVENTS_BY_CATEGORY = "GET_EVENTS_BY_CATEGORY"
+export const GET_EVENTS_DETAIL = "GET_EVENTS_DETAIL"
+
+export const REGISTER = "REGISTER"
+export const LOGIN = "LOGIN"
+export const PROFILE = 'PROFILE'
+
+export const CREATE_ORDER = 'CREATE_ORDER'
+export const PAYMENT_LIST = 'PAYMENT_LIST'
+export const PAYMENT = 'PAYMENT'
+export const TICKET = 'TICKET'
